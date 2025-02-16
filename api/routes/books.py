@@ -71,6 +71,7 @@ async def retrieve_book(book_id: int) -> Book:
             status_code=status.HTTP_200_OK,
             content=db.get_book(book_id).model_dump()
         )
+    
     return JSONResponse(
         status_code=status.HTTP_404_NOT_FOUND,
         content={
