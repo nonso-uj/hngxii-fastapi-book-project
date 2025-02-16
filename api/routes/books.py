@@ -62,3 +62,18 @@ async def delete_book(book_id: int) -> None:
     db.delete_book(book_id)
     return JSONResponse(status_code=status.HTTP_204_NO_CONTENT, content=None)
 
+
+@router.get("/{book_id}", status_code=status.HTTP_200_OK)
+async def retrieve_book(book_id: int) -> Book:
+    content=db.get_book(book_id)
+    if content:
+        return JSONResponse(
+            status_code=status.HTTP_200_OK,
+            content=db.get_book(book_id).model_dump()
+        )
+    return JSONResponse(
+        status_code=status.HTTP_404_NOT_FOUND,
+        content={
+            "detail": "Book not found"
+        }
+    )
